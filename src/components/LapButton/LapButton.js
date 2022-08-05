@@ -1,9 +1,9 @@
-
+import './LapButton.css'
 
 const LapButton = () => {
 
     return (
-        <h1> Hello world</h1>
+        <button id="lap-btn" >Lap</button>
     )
 }
 

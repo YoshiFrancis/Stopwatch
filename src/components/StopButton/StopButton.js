@@ -1,9 +1,9 @@
+import './StopButton.css'
 
-
-const StopButton = () => {
+const StopButton = ({ toggle }) => {
 
     return (
-        <h1> Hello world</h1>
+        <button id='stop-btn' onClick={toggle}>Stop</button>
     )
 }
 
