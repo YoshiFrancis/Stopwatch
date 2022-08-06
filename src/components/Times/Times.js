@@ -1,9 +1,29 @@
+import './Times.css'
 
-
-const Times = () => {
-
+const Times = ({ times }) => {
     return (
-        <h1> Hello world</h1>
+        <div id="time-container">  
+            <div>
+                <hr></hr>
+                <div className='time-item'>
+                    <p>Lap {times.length}</p>
+                    <p>{times[0]}</p>
+                </div>
+                <hr></hr>
+            </div>
+            {times
+            .map(
+                (time, index) => (
+                    <div key={index}>
+                        <div className='time-item'>
+                            <p>Lap {times.length - index}</p>
+                            <p>{time}</p>
+                        </div>
+                        <hr></hr>
+                    </div>
+                )
+            )}
+        </div>
     )
 }
 

@@ -6,12 +6,15 @@ import ResetButton from '../ResetButton/ResetButton'
 import StartButton from '../StartButton/StartButton'
 const Clock = () => {
 
-    const [clock, setClock] = useState('00.00.00')
+    const [clock, setClock] = useState('0')
     const [running, setRunning] = useState(false)
 
     const toggle = () => {
-        setRunning(!running)
+        setRunning(prevRunning => !prevRunning)
     }
+
+    
+    
     return (
         <div id="clock-component-container">
             <div id="clock-container">

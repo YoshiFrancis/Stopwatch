@@ -1,12 +1,12 @@
 #clock-component-container {
-    border: 2px pink solid;
+    border: 2px pink none;
     height: 65vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 #button-container {
-    border: 2px white solid;
+    border: 2px white none;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -17,7 +17,7 @@
     width: 7em;
     height: 7em;
     border-radius: 50%;
-    border: .1em white solid;
+    border: .1em white none;
 }
 
 #clock-container {

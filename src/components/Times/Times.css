@@ -1,0 +1,22 @@
+
+
+#time-container {
+
+}
+
+.time-item {
+    width: 100%;
+    font-size: 2em;
+    padding: .1em 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+hr {
+    width: 85%;
+    margin: 0 auto;
+    border: 0;
+    border-top: .1em solid rgb(61, 58, 58);
+    padding: 0;
+}
+
