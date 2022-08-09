@@ -24,8 +24,10 @@ function App() {
         minutes = 0;
         hours++
       }
+      let tmp = [...times]
+      tmp[0] = `${checkLength(minutes)}:${checkLength(seconds)}.${milliseconds}`
       setTimes(prevTimes => [
-        `${minutes}:${seconds}.${milliseconds}`, ...times
+        ...tmp
       ])
     }, 100)
   }
@@ -43,5 +45,15 @@ function App() {
     
   )
 }
+
+
+const checkLength = (number) => {
+  number = String(number)
+  if (number.length < 2) {
+      number = '0' + number
+  }
+  return number
+}
+
 
 export default App;

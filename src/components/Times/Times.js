@@ -19,7 +19,7 @@ const Times = ({ times }) => {
                 (time, index) => (
                     <div key={index}>
                         <div className='time-item'>
-                            <p>Lap {times.length - index}</p>
+                            <p>Lap {times.length - (index + 1)}</p>
                             <p>{time}</p>
                         </div>
                         <hr></hr>
