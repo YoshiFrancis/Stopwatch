@@ -20,6 +20,7 @@ const Clock = ({ disableClock, runClock, times }) => {
         }
     }, [running])
     
+    
     return (
         <div id="clock-component-container">
             <div id="clock-container">
