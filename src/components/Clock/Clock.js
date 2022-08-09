@@ -1,24 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Clock.css'
 import StopButton from '../StopButton/StopButton'
 import LapButton from '../LapButton/LapButton'
 import ResetButton from '../ResetButton/ResetButton'
 import StartButton from '../StartButton/StartButton'
-const Clock = () => {
+const Clock = ({ disableClock, runClock, times }) => {
 
-    const [clock, setClock] = useState('0')
     const [running, setRunning] = useState(false)
 
     const toggle = () => {
         setRunning(prevRunning => !prevRunning)
     }
 
-    
+    useEffect(() => {
+        if (running) {
+            runClock();
+        } else {
+            disableClock();
+        }
+    }, [running])
     
     return (
         <div id="clock-component-container">
             <div id="clock-container">
-                <p id="clock">{clock}</p>
+                <p id="clock">{times[0]}</p>
             </div>
             <div id="button-container">
                 {running ? 
