@@ -1,8 +1,8 @@
 import './ResetButton.css'
 
-const ResetButton = () => {
+const ResetButton = ({ resetClock }) => {
     return (
-        <button id="reset-btn">Reset</button>
+        <button id="reset-btn" onClick={resetClock}>Reset</button>
     )
 }
 

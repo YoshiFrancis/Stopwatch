@@ -4,7 +4,7 @@ import StopButton from '../StopButton/StopButton'
 import LapButton from '../LapButton/LapButton'
 import ResetButton from '../ResetButton/ResetButton'
 import StartButton from '../StartButton/StartButton'
-const Clock = ({ disableClock, runClock, times }) => {
+const Clock = ({ disableClock, lapClock, runClock, resetClock, times }) => {
 
     const [running, setRunning] = useState(false)
 
@@ -30,12 +30,12 @@ const Clock = ({ disableClock, runClock, times }) => {
             <div id="button-container">
                 {running ? 
                 <>
-                <LapButton />
+                <LapButton lapClock={lapClock}/>
                 <StopButton disableClock={disableClock} toggle={toggle}/>
                 </>
                 : 
                 <>
-                <ResetButton />
+                <ResetButton resetClock={resetClock}/>
                 <StartButton runClock={runClock} toggle={toggle}/>
                 
                 </>}

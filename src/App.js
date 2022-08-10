@@ -5,9 +5,10 @@ import Times from './components/Times/Times'
 import { useState } from 'react'
 let trigger = false
 let runningClock = null;
+let lap = false;
 function App() {
   const [times, setTimes] = useState(['0', '05:23.32', '12:23.45', '01:36.29'])
-  let [ minutes, seconds, milliseconds] = [0, 0, 0, 0]
+  let [ minutes, seconds, milliseconds] = [ 0, 0, 0]
   
   
   const runClock = () => {
@@ -16,9 +17,7 @@ function App() {
       return
     }
     console.log(runningClock, "This is in runClock function #13")
-    if (runningClock) {
-      console.log("LOL")
-    } 
+
     runningClock = 1
     trigger = true;
     console.log(trigger, "this is trigger")
@@ -39,9 +38,21 @@ function App() {
       }
       let tmp = [...times]
       tmp[0] = `${checkLength(minutes)}:${checkLength(seconds)}.${milliseconds}`
-      setTimes(prevTimes => [
-        ...tmp
-      ])
+      if (lap) {
+        setTimes(prevTimes => [
+          '00:00.0'
+        ]) 
+        console.log(...tmp)
+        minutes= 0;
+        seconds = 0;
+        milliseconds = 0;
+        lap = false;
+      } else {
+        setTimes(prevTimes => [
+          ...tmp
+        ])
+      }
+      
     }, 100)
   }
 
@@ -53,10 +64,21 @@ function App() {
     trigger=false
   }
 
+  const resetClock = () => {
+    setTimes(['00:00.0'])
+  }
+
+  const lapClock = () => {
+    lap = true;
+    setTimes(prevTimes => [
+      '00:00.0', ...times
+    ])
+  }
+
   return (
     <div>
       <CurrentDate />
-      <Clock times={times} disableClock={disableClock} runClock={runClock}/>
+      <Clock times={times} lapClock={lapClock} resetClock={resetClock}disableClock={disableClock} runClock={runClock}/>
       <Times times={times}/>
     </div>
     

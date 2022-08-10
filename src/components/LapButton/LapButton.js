@@ -1,9 +1,9 @@
 import './LapButton.css'
 
-const LapButton = () => {
+const LapButton = ({ lapClock }) => {
 
     return (
-        <button id="lap-btn" >Lap</button>
+        <button id="lap-btn" onClick={lapClock}>Lap</button>
     )
 }
 
