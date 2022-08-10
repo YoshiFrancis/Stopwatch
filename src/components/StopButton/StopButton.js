@@ -1,9 +1,12 @@
 import './StopButton.css'
 
-const StopButton = ({ toggle }) => {
+const StopButton = ({ toggle, disableClock }) => {
 
     return (
-        <button id='stop-btn' onClick={toggle}>Stop</button>
+        <button id='stop-btn' onClick={() => {
+            toggle();
+            disableClock();
+        }}>Stop</button>
     )
 }
 
