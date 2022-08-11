@@ -2,14 +2,15 @@ import './App.css'
 import CurrentDate from './components/Date/Date'
 import Clock from './components/Clock/Clock'
 import Times from './components/Times/Times'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 let trigger = false
 let runningClock = null;
-
+let newClock = true;
 function App() {
   const [times, setTimes] = useState(['05:23.32', '12:23.45', '01:36.29'])
-  let [ minutes, seconds, milliseconds] = [ 0, 0, 0]
- 
+  let [ minutes, seconds, milliseconds] = [ useRef(0), useRef(0), useRef(0)]
+
+
 
 
   const runClock = () => {
@@ -19,44 +20,61 @@ function App() {
     let changingTime = times[0]
     trigger = true;
     runningClock = setInterval(() => {
-      if (milliseconds === 9) {
-        seconds++;
-        milliseconds = 0
+      
+      if (newClock) {
+        newClock = false;
+        setTimes(prevTimes => [changingTime])
       } else {
-        milliseconds++;
+          if (milliseconds.current === 9) {
+            seconds.current = seconds.current + 1;
+            milliseconds.current = 0;
+          } else {
+            milliseconds.current = milliseconds.current + 1;
+          }
+          if (seconds.current === 60) {
+            seconds.current = 0;
+            minutes.current = minutes.current + 1
+          }
+          if (minutes.current === 60) {
+            minutes.current = 0;
+          }
+          changingTime = `${checkLength(minutes.current)}:${checkLength(seconds.current)}.${milliseconds.current}`
+          let x = times.slice(1)
+          x[0] = changingTime + ''
+          setTimes(prevTimes => [
+            changingTime, ...prevTimes.slice(1)
+          ])
       }
-      if (seconds === 60) {
-        seconds = 0;
-        minutes++
-      }
-      if (minutes === 60) {
-        minutes = 0;
-      }
-      changingTime = `${checkLength(minutes)}:${checkLength(seconds)}.${milliseconds}`
-      
-      setTimes(prevTimes => [
-        changingTime, ...times
-      ])
-      
     }, 100)
   }
 
-  const disableClock = () => {
-    clearInterval(runningClock)
-    trigger=false
-  }
+  const disableClock = useCallback(() => {
+      clearInterval(runningClock)
+      trigger=false
+    }, [])
+
+    useEffect(() => {
+      setTimes(prevTimes => ([
+        ...prevTimes.slice(1)
+      ]))
+    }, [disableClock])
 
   const resetClock = () => {
     setTimes(['00:00.0'])
+    newClock = true;
   }
 
   const lapClock = () => {
     clearInterval(runningClock)
     trigger=false;
+    milliseconds.current = 0;
+    minutes.current = 0;
+    seconds.current = 0
+    
     setTimes(prevTimes => [
-      `${checkLength(minutes)}:${checkLength(seconds)}.${milliseconds}`, ...times
-   ]) 
-   runClock()
+      '00:00.0', ...times
+    ])
+   runClock();
   }
 
   return (
